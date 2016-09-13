@@ -4,7 +4,7 @@ import io
 import os
 import re
 import sys
-from optparse import OptionParser
+from argparse import ArgumentParser
 import subprocess
 
 NAME = ""
@@ -19,24 +19,23 @@ def run(cmd):
 def parse(argv):
     global NAME, VERBOSE, FILE
 
-    p = OptionParser(description="A Python template for the shell.",
+    p = ArgumentParser(description="A Python template for the shell.",
                               prog="python {}".format(NAME),
-                              version="0.1",
                               usage= "{} [option] [filename]".format(NAME))
 
-    p.add_option("--verbose", "-v",
+    p.add_argument("--verbose", "-v",
                 action = "store_true",
                 help="cause {} to be verbose, showing all \
                         operations".format(NAME),
                 default=False)
 
-    p.add_option("--file", "-f",
+    p.add_argument("--file", "-f",
                 action = "store_true",
                 help="read from file",
                 default=False)
 
-    options, args = p.parse_args()
-    if options.verbose:
+    args = p.parse_args()
+    if args.verbose:
         VERBOSE = True
 
 def main(argc, argv):
